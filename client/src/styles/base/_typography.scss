@@ -1,0 +1,18 @@
+@use "../abstracts/fonts" as fonts;
+
+body, button {
+  font-family: fonts.$font-family-text;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: fonts.$font-family-title;
+}
+
+.lorem {
+  font-family: fonts.$font-family-lorem;
+}

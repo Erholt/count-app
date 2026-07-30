@@ -1,0 +1,10 @@
+@use "../abstracts/colors" as colors;
+
+body {
+  background-color: colors.$light-background;
+  color: black;
+
+  header {
+    background-color: colors.$light-header-background;
+  }
+}

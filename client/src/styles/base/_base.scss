@@ -1,0 +1,6 @@
+@use "../abstracts/colors" as colors;
+
+html {
+  background-color: colors.$dark-background;
+  scroll-behavior: smooth;
+}

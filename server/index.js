@@ -10,17 +10,42 @@ const UserModel = require('./models/User')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
 
 env.config({ path: path.resolve(__dirname, '../config.env') })
 
 mongoose.connect(`mongodb+srv://jacob_db_user:${process.env.DB_PASSWORD}@cluster0.fyomuba.mongodb.net/?appName=Cluster0`)
 
+app.get('/verify-token', (req, res) => {
+  try {
+    const authHeader = req.headers.authorization || ''
+    const headerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : ''
+
+    const cookies = req.headers.cookie || ''
+    const cookieToken = cookies
+      .split(';')
+      .map((part) => part.trim())
+      .find((part) => part.startsWith('token='))
+      ?.split('=')[1]
+
+    const token = headerToken || decodeURIComponent(cookieToken || '')
+
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' })
+    }
+
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
+    return res.status(200).json({ valid: true, user: decoded })
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid token' })
+  }
+})
+
 // Login route
 app.post('/login', async (req, res) => {
   try {
-    const body = req.body || {}
-    const email = String(body.email || '').trim().toLowerCase()
+    const body     = req.body || {}
+    const email    = String(body.email || '').trim().toLowerCase()
     const password = String(body.password || '')
 
     if (!email || !password) {
@@ -52,7 +77,12 @@ app.post('/login', async (req, res) => {
       { algorithm: 'HS256', expiresIn: 1800 }
     )
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 1800 * 1000 })
+    res.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1800 * 1000,
+      sameSite: 'lax',
+      path: '/'
+    })
     return res.status(200).json({ status: 200, message: 'Login successful', user, token })
   } catch (error) {
     console.error(error)

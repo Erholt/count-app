@@ -10,9 +10,20 @@ const UserModel = require('./models/User')
 
 const app = express()
 app.use(express.json())
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
-
 env.config({ path: path.resolve(__dirname, '../config.env') })
+
+const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'].filter(Boolean)
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+      return
+    }
+
+    callback(new Error('Not allowed by CORS'))
+  },
+  credentials: true,
+}))
 
 mongoose.connect(`mongodb+srv://jacob_db_user:${process.env.DB_PASSWORD}@cluster0.fyomuba.mongodb.net/?appName=Cluster0`)
 
@@ -111,6 +122,7 @@ app.post("/signup", async (req, res) => {
   }
 })
 
-app.listen(3001, () => {
-  console.log('Server is running on port 3001')
+const port = process.env.PORT || 3001
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`)
 })

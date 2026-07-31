@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/api';
 
 const ProfileCard = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/verify-token', { withCredentials: true })
+    api.get('/verify-token')
       .then((response) => {
         setUserInfo(response.data.user || null);
       })

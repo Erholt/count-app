@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '@/api'
 
 function Login() {
   const [email, setEmail]       = useState()
@@ -9,7 +9,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3001/login', { email, password }, { withCredentials: true })
+    api.post('/login', { email, password })
       .then((response) => {
         if (response.status === 200) {
           console.log('Login successful:', response.data)

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '@/api'
 
 function Signup() {
   const [username, setUsername] = useState()
@@ -10,7 +10,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3001/signup', { username, email, password })
+    api.post('/signup', { username, email, password })
       .then((response) => {
         console.log('Signup successful:', response.data)
         navigate('/login')

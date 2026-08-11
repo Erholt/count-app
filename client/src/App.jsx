@@ -33,7 +33,7 @@ function App() {
       <div style={{ textAlign: 'center' }}>
         <Header />
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />

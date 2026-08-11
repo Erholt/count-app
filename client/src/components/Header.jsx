@@ -1,16 +1,14 @@
 import { FaDice } from 'react-icons/fa';
 import ColorTheme  from './Layout/Header/ColorThemes';
-import ProfileCard from './Layout/Header/ProfileCard';
+import ProfileBadge from './Layout/Header/ProfileBadge';
 
 const Header = () => {
   return (
-    <header className="flex px-2 sticky z-50" style={{top: 0}}>
+    <header className="flex px-4 sticky z-50" style={{top: 0}}>
       <a href="/" title="Logo of the page" id="logo" className="p-1 m-2 text-4xl"><FaDice /></a>
-      <ul className="flex items-center grow justify-items-end list-none">
-        <li>tekst</li>
-        <li>tekst2</li>
+      <ul className="flex items-center grow justify-items-end list-none justify-end">
         <ColorTheme />
-        <ProfileCard />
+        <ProfileBadge />
       </ul>
     </header>
   );

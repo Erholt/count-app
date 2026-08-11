@@ -12,8 +12,8 @@ function Login() {
     api.post('/login', { email, password })
       .then((response) => {
         if (response.status === 200) {
-          console.log('Login successful:', response.data)
-          navigate('/home')
+          window.dispatchEvent(new Event('auth-change'))
+          navigate('/')
         }
       })
       .catch((error) => {

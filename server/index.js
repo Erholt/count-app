@@ -52,6 +52,16 @@ app.get('/verify-token', (req, res) => {
   }
 })
 
+app.post('/logout', (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+  })
+
+  return res.status(200).json({ message: 'Logged out successfully' })
+})
+
 // Login route
 app.post('/login', async (req, res) => {
   try {

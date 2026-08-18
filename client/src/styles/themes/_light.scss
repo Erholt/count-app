@@ -2,9 +2,28 @@
 
 body {
   background-color: colors.$light-background;
-  color: black;
+  color: #111827;
 
   header {
     background-color: colors.$light-header-background;
+  }
+
+  .profile-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(209, 213, 219, 0.7);
+  }
+
+  .profile-select {
+    background: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  .profile-select__icon {
+    color: #4b5563;
+  }
+
+  .profile-select__control {
+    color: #374151;
+    background-color: transparent;
   }
 }

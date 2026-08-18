@@ -25,5 +25,9 @@
   .profile-select__control {
     color: #f3f4f6;
     background-color: transparent;
+
+    option {
+      color: #000000;
+    }
   }
 }

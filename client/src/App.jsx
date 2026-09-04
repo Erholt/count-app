@@ -8,6 +8,8 @@ import Home    from './pages/Home'
 import Signup  from './pages/Signup'
 import Login   from './pages/Login'
 import Profile from './pages/Profile'
+import Games   from './pages/Games'
+import History from './pages/History'
 import Test    from './pages/Test'
 import Test2   from './pages/Test2'
 import NoMatch from './pages/404'
@@ -38,6 +40,8 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/games" element={<ProtectedRoute><Games /></ProtectedRoute>} />
+          <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
           <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
           <Route path="/test2" element={<ProtectedRoute><Test2 /></ProtectedRoute>} />
 
